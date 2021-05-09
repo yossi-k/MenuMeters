@@ -75,6 +75,7 @@
 #define kOpenConsoleTitle					@"Open Console"
 #define kNoInfoErrorMessage					@"No info available"
 #define kCPUPowerLimitStatusTitle @"CPU power limit:"
+#define kTemperatureTitle                   @"Temperature:"
 
 ///////////////////////////////////////////////////////////////
 //
@@ -188,6 +189,14 @@
         [menuItem setEnabled:NO];
     }
     
+    // Add temperature
+    menuItem = (NSMenuItem *)[extraMenu addItemWithTitle:[bundle localizedStringForKey:kTemperatureTitle value:nil table:nil]
+                                                  action:nil
+                                           keyEquivalent:@""];
+    [menuItem setEnabled:NO];
+    menuItem = (NSMenuItem *)[extraMenu addItemWithTitle:@"" action:nil keyEquivalent:@""];
+    [menuItem setEnabled:NO];
+
 	// And the "Open Process Viewer"/"Open Activity Monitor" and "Open Console" item
 	[extraMenu addItem:[NSMenuItem separatorItem]];
 	menuItem = (NSMenuItem *)[extraMenu addItemWithTitle:[bundle localizedStringForKey:kOpenConsoleTitle value:nil table:nil]
@@ -356,6 +365,11 @@
         }
     }
     
+    // Update the CPU temperature
+    float_t celsius = [cpuInfo cpuProximityTemperature];
+    title = [NSString stringWithFormat:kMenuIndentFormat, [NSString stringWithFormat:@"%.1f℃", celsius]];
+    if (title) LiveUpdateMenuItemTitle(extraMenu, kCPUProcessMenuIndex + kCPUrocessCountMax + 1, title);
+
 	// Send the menu back to SystemUIServer
 	return extraMenu;
 

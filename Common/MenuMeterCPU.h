@@ -40,6 +40,7 @@
 #define kCPUPowerLimitInfoMenuIndex                10
 #define kCPUProcessLabelMenuIndex           11
 #define kCPUProcessMenuIndex                (kCPUProcessLabelMenuIndex + 1)
+#define kCPUTemperatureMenuIndex            (kCPUProcessMenuIndex + 1)
 
 ///////////////////////////////////////////////////////////////
 //
